@@ -22,7 +22,8 @@ function Card({common,png}) {
         }}
     >
         <img src={png} alt={`flag of ${common}`}  style={{width:"120px",height:"120px"}}/>
-        <h3>{common}</h3>
+        <h2><span>{common}</span></h2>
+        
 
 
     </div>
