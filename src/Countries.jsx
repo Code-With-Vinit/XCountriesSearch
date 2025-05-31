@@ -6,6 +6,7 @@ import {useState,useEffect} from 'react';
 function Card({common,png}) {
   return (
     <div
+        className="countryCard"
         style={{
             display:"flex",
             flexDirection:"column",
@@ -36,6 +37,7 @@ const Endpoint="https://countries-search-data-prod-812920491762.asia-south1.run.
 function Countries() {
 
     const [apiData,setApiData]= useState([]);
+    const[query,setQuery]=useState("");
 
     useEffect(()=>{
         fetch(Endpoint).then((response)=>response.json()).then((data)=>{
@@ -49,7 +51,22 @@ function Countries() {
 
   return (
     <>
-    
+    <div style={{
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center"
+    }}>
+        <input 
+        type="text"
+        placeholder="Search for Countries..."
+        style={{
+            width:"600px",
+            height:"25px"
+        }}
+        onChange={(e)=>setQuery(e.target.value.toLowerCase())}
+        />
+
+    </div>
     <div
         style={{
             display:"flex",
@@ -58,7 +75,7 @@ function Countries() {
             justifyContent:"center"
         }}
     >
-       {apiData.map(({common,png},index)=>
+       {apiData.filter((country)=>country.common.toLowerCase().includes(query)).map(({common,png},index)=>
        (<Card key={index} common={common} png={png}/>)
     )}
     </div>
